@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewpoint" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+        <title>drawing</title>
+    </head>
+    <body>
+        <div class="container">
+            <canvas class="canvas" width="800px" height="600px"></canvas>
+        </div>
+
+        <script>
+            var canvas = document.querySelector('.canvas');
+            var ctx = canvas.getContext('2d');
+            canvas.onmouseenter = function() {
+                canvas.onmousedown = function(e) {
+                    var start_x = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
+                    var start_y = e.clientY - canvas.offsetTop + document.body.scrollTop;
+
+                    ctx.beginPath();
+                    ctx.moveTo(start_x,start_y);
+                    ctx.lineCap = 'round';
+                    ctx.lineJoin = "round";
+                    ctx.strokeStyle = "black";
+                    ctx.lineWidth = "12px";
+                    ctx.lineTo(start_x,start_y);
+                    ctx.stroke();
+                
+                    canvas.onmousemove = function(e) {
+                        var move_x = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
+                        var move_y = e.clientY - canvas.offsetTop + document.body.scrollTop;
+                        ctx.lineTo(move_x,move_y);
+                        ctx.stroke();
+                    }
+                    canvas.onmouseup = function(e) {
+                        ctx.closePath();
+                        canvas.onmousemove = null;
+                        canvas.onmouseup = null;
+                    }
+                }
+                canvas.onmouseleave = function(){
+				canvas.onmousemove = null;
+				canvas.onmouseup = null;
+				canvas.onmousedown = null;
+			    }
+            }
+        </script>
+    </body>
+</html>

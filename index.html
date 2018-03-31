@@ -4,13 +4,92 @@
         <meta charset="UTF-8">
         <meta name="viewpoint" content="width=device-width,user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
         <title>drawing</title>
+        <style>
+            body {
+                background-color: rgb(253, 228, 181);
+            }
+            .container {
+                display: flex;
+                flex-direction: row;
+            }
+            .canvas {
+                background-color: white;
+            }
+            .tools {
+                display: flex;
+                flex-direction: column;
+                
+            }
+            .color {
+                background-color: white;
+                margin-bottom: 20px;
+                background-color: rgb(253, 228, 181);
+            }
+            .red-pen {
+                background-color: red;
+                width: 20px;
+                height: 20px;
+            }
+            .yellow-pen {
+                background-color: yellow;
+                width: 20px;
+                height: 20px;
+            }
+            .green-pen {
+                background-color: green;
+                width: 20px;
+                height: 20px;
+            }
+            .blue-pen {
+                background-color: blue;
+                width: 20px;
+                height: 20px;
+            }
+            .purple-pen {
+                background-color: purple;
+                width: 20px;
+                height: 20px;
+            }
+            .black-pen {
+                background-color: black;
+                width: 20px;
+                height: 20px;
+            }
+            .size {
+                margin-bottom: 20px;
+            }
+            .eraser {
+                margin-bottom: 20px;
+            }
+            .reset {
+                margin-bottom: 20px;
+            }
+        </style>
     </head>
     <body>
         <div class="container">
             <canvas class="canvas" width="800px" height="600px"></canvas>
+            <div class="tools">
+                <div class="color">
+                    <button class="red-pen"></button>
+                    <button class="yellow-pen"></button>
+                    <button class="green-pen"></button>
+                    <button class="blue-pen"></button>
+                    <button class="purple-pen"></button>
+                    <button class="black-pen"></button>
+                </div>
+                <div class="size">
+                    <button class="bolder">bolder</button>
+                    <button class="lighter">lighter</button>
+                </div>
+                <button class="eraser">使用橡皮擦</button>
+                <button class="reset">重置画板</button>
+            </div>
         </div>
 
         <script>
+            var penColor = "black";
+            var penWidth = 1;
             var canvas = document.querySelector('.canvas');
             var ctx = canvas.getContext('2d');
             canvas.onmouseenter = function() {
@@ -22,8 +101,8 @@
                     ctx.moveTo(start_x,start_y);
                     ctx.lineCap = 'round';
                     ctx.lineJoin = "round";
-                    ctx.strokeStyle = "black";
-                    ctx.lineWidth = "12px";
+                    ctx.strokeStyle = penColor;
+                    ctx.lineWidth = penWidth;
                     ctx.lineTo(start_x,start_y);
                     ctx.stroke();
                 
@@ -44,6 +123,57 @@
 				canvas.onmouseup = null;
 				canvas.onmousedown = null;
 			    }
+            }
+            //重置画板
+            var btn_reset = document.querySelector('.reset');
+            btn_reset.onclick = function() {
+                var tempWidth = canvas.width;
+                canvas.width = canvas.height;
+                canvas.width = tempWidth;
+            } 
+            //选取颜色
+            var btn_red = document.querySelector('.red-pen');
+            btn_red.onclick = function() {
+                penColor = "red";
+            }
+            var btn_red = document.querySelector('.yellow-pen');
+            btn_red.onclick = function() {
+                penColor = "yellow";
+            }
+            var btn_red = document.querySelector('.green-pen');
+            btn_red.onclick = function() {
+                penColor = "green";
+            }
+            var btn_red = document.querySelector('.blue-pen');
+            btn_red.onclick = function() {
+                penColor = "blue";
+            }
+            var btn_red = document.querySelector('.purple-pen');
+            btn_red.onclick = function() {
+                penColor = "purple";
+            }
+            var btn_red = document.querySelector('.black-pen');
+            btn_red.onclick = function() {
+                penColor = "black";
+            }
+            var btn_eraser = document.querySelector('.eraser');
+            btn_eraser.onclick = function() {
+                penColor = "white";
+            }
+            //设置笔触大小
+            var btn_bolder = document.querySelector('.bolder')
+            btn_bolder.onclick = function() {
+                penWidth += 1 ;
+                if (penWidth > 60) {
+                    penWidth = 60;
+                }
+            }
+            var btn_lighter = document.querySelector('.lighter')
+            btn_lighter.onclick = function() {
+                penWidth -= 1 ;
+                if (penWidth < 1) {
+                    penWidth = 1;
+                }
             }
         </script>
     </body>

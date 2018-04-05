@@ -1,4 +1,3 @@
 # drawing
-drawing
-#DEMO
+# DEMO
 ![drawing.gif](./drawing.gif)
